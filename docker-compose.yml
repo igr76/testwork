@@ -1,0 +1,19 @@
+services:
+  consumer:
+    build: consumer
+    image: consumer-image
+    container_name: consumer
+    hostname: consumer
+    ports:
+      - "8080:8080"
+    restart: on-failure
+
+
+  producer:
+    build: producer
+    image: producer-image
+    container_name: producer
+    hostname: producer
+    ports:
+      - "8080:8080"
+    restart: on-failure
