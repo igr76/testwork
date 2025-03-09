@@ -26,4 +26,13 @@ public class CompanyDto {
      * List users company
      */
     public List<Integer> listUser;
+
+    @Override
+    public String toString() {
+        return "CompanyDto{" +
+                "name='" + name + '\'' +
+                ", budget=" + budget +
+                ", listUser=" + listUser +
+                '}';
+    }
 }

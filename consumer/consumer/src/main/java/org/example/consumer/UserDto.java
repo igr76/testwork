@@ -29,4 +29,15 @@ public class UserDto {
      * phone number user
      */
     public int phone;
+
+    @Override
+    public String toString() {
+        return "UserDto{" +
+                "id=" + id +
+                ", number=" + number +
+                ", name='" + name + '\'' +
+                ", LastName='" + LastName + '\'' +
+                ", phone=" + phone +
+                '}';
+    }
 }

@@ -34,4 +34,13 @@ public class CompanyEntity {
     @CollectionTable(name = "list_user")
     public List<Integer> listUser;
 
+    @Override
+    public String toString() {
+        return "CompanyEntity{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", budget=" + budget +
+                ", listUser=" + listUser +
+                '}';
+    }
 }
