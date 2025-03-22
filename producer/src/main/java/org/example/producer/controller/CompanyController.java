@@ -1,5 +1,7 @@
-package org.example.producer;
+package org.example.producer.controller;
 
+import org.example.producer.dto.CompanyDto;
+import org.example.producer.service.CompanyService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,7 +14,7 @@ public class CompanyController {
     CompanyService companyService;
     @GetMapping(value = "/{name}")
     public ResponseEntity<CompanyDto> getUser(@PathVariable(value = "name") String name) {
-        return ResponseEntity.ok(companyService.getCompany(name));
+        return ResponseEntity.ok(companyService.getCompanyByName(name));
     }
 
 }

@@ -1,5 +1,7 @@
-package org.example.consumer;
+package org.example.consumer.controller;
 
+import org.example.consumer.service.UserService;
+import org.example.consumer.dto.UserDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,11 +18,11 @@ public class UserController {
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<UserDto> getUser(@PathVariable(value = "id") Integer id) {
-        return ResponseEntity.ok(userService.getUser(id));
+        return ResponseEntity.ok(userService.getUserById(id));
     }
     @GetMapping(value = "/{name}")
     public ResponseEntity<UserDto> getUser(@PathVariable(value = "name") String name) {
-        return ResponseEntity.ok(userService.getUser(name));
+        return ResponseEntity.ok(userService.getUserByname(name));
     }
 
     @GetMapping(value = "/all")

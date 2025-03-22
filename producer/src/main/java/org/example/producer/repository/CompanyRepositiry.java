@@ -1,5 +1,6 @@
-package org.example.producer;
+package org.example.producer.repository;
 
+import org.example.producer.entity.CompanyEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

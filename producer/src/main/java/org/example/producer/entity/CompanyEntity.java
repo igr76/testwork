@@ -1,6 +1,8 @@
-package org.example.consumer;
+package org.example.producer.entity;
 
 
+import jakarta.persistence.CollectionTable;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
@@ -8,39 +10,37 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
 @Setter
 @Getter
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserEntity {
+public class CompanyEntity {
     @Id
     public int id;
     /**
-     * number user
-     */
-    public int number;
-    /**
-     * name user
+     * name company
      */
     public String name;
     /**
-     * Last name user
+     * budget company
      */
-    public String LastName;
+    public int budget;
     /**
-     * phone number user
+     * List users company
      */
-    public int phone;
+    @ElementCollection
+    @CollectionTable(name = "list_user")
+    public List<Integer> listUser;
 
     @Override
     public String toString() {
-        return "UserEntity{" +
+        return "CompanyEntity{" +
                 "id=" + id +
-                ", number=" + number +
                 ", name='" + name + '\'' +
-                ", LastName='" + LastName + '\'' +
-                ", phone=" + phone +
+                ", budget=" + budget +
+                ", listUser=" + listUser +
                 '}';
     }
 }

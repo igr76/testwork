@@ -1,4 +1,6 @@
-package org.example.consumer;
+package org.example.consumer.dto;
+
+import org.example.consumer.entity.UserEntity;
 
 import java.util.ArrayList;
 import java.util.List;

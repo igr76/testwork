@@ -1,4 +1,6 @@
-package org.example.producer;
+package org.example.producer.dto;
+
+import org.example.producer.entity.CompanyEntity;
 
 public class CompanyMapper {
     public CompanyEntity toEntity(CompanyDto companyDto) {

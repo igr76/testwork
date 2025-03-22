@@ -1,4 +1,4 @@
-package org.example.producer;
+package org.example.producer.dto;
 
 
 import lombok.AllArgsConstructor;
