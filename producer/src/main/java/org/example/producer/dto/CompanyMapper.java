@@ -18,4 +18,11 @@ public class CompanyMapper {
         companyDto.setListUser(companyEntity.getListUser());
         return companyDto;
     }
+
+    public CompanyDtoAndUsers toDtosThisUsers(CompanyDto companyDto) {
+        CompanyDtoAndUsers companyDtoAndUsers = new CompanyDtoAndUsers();
+        companyDtoAndUsers.setName(companyDto.getName());
+        companyDtoAndUsers.setBudget(companyDto.getBudget());
+        return companyDtoAndUsers;
+    }
 }

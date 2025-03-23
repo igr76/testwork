@@ -1,5 +1,8 @@
 package org.example.consumer.controller;
 
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import org.antlr.v4.runtime.misc.NotNull;
 import org.example.consumer.service.UserService;
 import org.example.consumer.dto.UserDto;
 import org.springframework.http.ResponseEntity;
@@ -17,11 +20,11 @@ public class UserController {
     UserService userService;
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<UserDto> getUser(@PathVariable(value = "id") Integer id) {
+    public ResponseEntity<UserDto> getUser(@PathVariable(value = "id") int id) {
         return ResponseEntity.ok(userService.getUserById(id));
     }
     @GetMapping(value = "/{name}")
-    public ResponseEntity<UserDto> getUser(@PathVariable(value = "name") String name) {
+    public ResponseEntity<UserDto> getUser(@PathVariable(value = "name")@NonNull String name) {
         return ResponseEntity.ok(userService.getUserByname(name));
     }
 
