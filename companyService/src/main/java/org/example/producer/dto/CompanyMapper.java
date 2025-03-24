@@ -19,7 +19,7 @@ public class CompanyMapper {
         return companyDto;
     }
 
-    public CompanyDtoAndUsers toDtosThisUsers(CompanyDto companyDto) {
+    public CompanyDtoAndUsers toDtoListCompanyWithListEmployees(CompanyDto companyDto) {
         CompanyDtoAndUsers companyDtoAndUsers = new CompanyDtoAndUsers();
         companyDtoAndUsers.setName(companyDto.getName());
         companyDtoAndUsers.setBudget(companyDto.getBudget());

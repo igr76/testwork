@@ -4,7 +4,7 @@ import org.example.consumer.dto.UserDto;
 
 import java.util.List;
 
-public interface UserService {
+public interface EmployeeService {
     UserDto getUserById(int id);
 
     List<UserDto> getAllUser();

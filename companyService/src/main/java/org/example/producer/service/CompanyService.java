@@ -6,5 +6,5 @@ import org.example.producer.dto.CompanyDtoAndUsers;
 public interface CompanyService {
     CompanyDto getCompanyByName(String name);
 
-    CompanyDtoAndUsers getCompanyByNameWithEmployees(String name);
+    CompanyDtoAndUsers getCompanyByNameWithListEmployees(String name);
 }

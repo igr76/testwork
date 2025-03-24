@@ -1,6 +1,6 @@
 services:
   consumer:
-    build: consumer
+    build: employeeService
     image: consumer-image
     container_name: consumer
     hostname: consumer

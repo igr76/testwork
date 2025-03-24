@@ -1,10 +1,12 @@
 package org.example.producer.service.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.example.producer.dto.CompanyDto;
 import org.example.producer.dto.CompanyDtoAndUsers;
 import org.example.producer.dto.CompanyMapper;
 import org.example.producer.dto.UserDto;
+import org.example.producer.entity.CompanyEntity;
 import org.example.producer.repository.CompanyRepositiry;
 import org.example.producer.service.CompanyService;
 import org.slf4j.Logger;
@@ -18,14 +20,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-
+@Slf4j
 @Service
 public class CompanyServiceImpl implements CompanyService {
-    private static final Logger log = LoggerFactory.getLogger(CompanyServiceImpl.class);
+
     @Value("${applycation.user}")
     private String urlUser ;
-    CompanyRepositiry companyRepositiry;
-    CompanyMapper companyMapper = new CompanyMapper();
+    private CompanyRepositiry companyRepositiry;
+    private CompanyMapper companyMapper = new CompanyMapper();
 
     public CompanyServiceImpl(CompanyRepositiry companyRepositiry) {
         this.companyRepositiry = companyRepositiry;
@@ -34,16 +36,18 @@ public class CompanyServiceImpl implements CompanyService {
     @Override
     public CompanyDto getCompanyByName(String name) {
         CompanyDto companyDto = new CompanyDto();
+        CompanyEntity companyEntity = new CompanyEntity();
         try {
-            companyDto=companyMapper.toDto(companyRepositiry.findByName(name));
-            log.debug("getCompanyByName:"+companyDto.toString());
+            companyEntity = companyRepositiry.findByName(name);
+            log.debug(String.format("the company by name=%s was successfully received"),name);
         } catch (Exception e) {
             log.error(e.getMessage());
         }
+        companyDto=companyMapper.toDto(companyEntity);
         return companyDto;
     }
     @Override
-    public CompanyDtoAndUsers getCompanyByNameWithEmployees(String name) {
+    public CompanyDtoAndUsers getCompanyByNameWithListEmployees(String name) {
         CompanyDto companyDto = new CompanyDto();
         ObjectMapper objectMapper = new ObjectMapper();
         List<UserDto> userDtoList = new ArrayList<>();
@@ -57,14 +61,15 @@ public class CompanyServiceImpl implements CompanyService {
                             .anyMatch(p -> p.equals(e.getId())))
                     .collect(Collectors.toList());
             userDtoList=Arrays.asList(userDtos);
+            log.debug(String.format("the company by name=%s this employee was successfully received"),name);
         } catch (IOException e) {
             log.error(e.getMessage());
             return null;
         }
-        CompanyDtoAndUsers companyDtoAndUsers = new CompanyDtoAndUsers();
-        companyDtoAndUsers = companyMapper.toDtosThisUsers(companyDto);
-        companyDtoAndUsers.setListUsers(userDtoList);
+        CompanyDtoAndUsers companyDtoWithListEmployees = new CompanyDtoAndUsers();
+        companyDtoWithListEmployees = companyMapper.toDtoListCompanyWithListEmployees(companyDto);
+        companyDtoWithListEmployees.setListUsers(userDtoList);
 
-        return companyDtoAndUsers;
+        return companyDtoWithListEmployees;
     }
 }
