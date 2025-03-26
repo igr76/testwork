@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.io.IOException;
+
 @Slf4j
 @RestController
 @RequestMapping(path = "/company")
@@ -22,7 +25,7 @@ public class CompanyController {
     }
 
     @GetMapping(value = "/companyThisUsers/{name}")
-    public ResponseEntity<CompanyDtoAndUsers> getCompanyByNameWithListUsers(@PathVariable(value = "name") @NonNull String name) {
+    public ResponseEntity<CompanyDtoAndUsers> getCompanyByNameWithListUsers(@PathVariable(value = "name") @NonNull String name) throws IOException {
         log.debug(String.format("In CompanyController getCompanyByNameThisUsers name=%s  name received successfully"),name);
         return ResponseEntity.ok(companyService.getCompanyByNameWithListEmployees(name));
     }

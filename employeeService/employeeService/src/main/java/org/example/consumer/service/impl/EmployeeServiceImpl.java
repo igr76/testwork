@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+
 @Slf4j
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
@@ -27,12 +28,9 @@ public class EmployeeServiceImpl implements EmployeeService {
     public UserDto getUserById(int id) {
         UserDto userDto = new UserDto();
         UserEntity userEntity = new UserEntity();
-        try {
-            userEntity = userRepositiry.findById(id).orElseThrow();
-            log.debug(String.format("the employee by id=%s was successfully received"),id);
-        } catch (Exception e) {
-            log.error(e.getMessage());
-        }
+
+        userEntity = userRepositiry.findById(id).orElseThrow();
+        log.debug(String.format("the employee by id=%s was successfully received"), id);
         userDto = userMapper.toDto(userEntity);
         return userDto;
     }
@@ -40,12 +38,9 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public List<UserDto> getAllUser() {
         List<UserDto> userDtos = new ArrayList<>();
-        try {
-            userDtos =userMapper.toListDto(userRepositiry.findAll());
-            log.debug("the full list of employees has been successfully received");
-        } catch (Exception e) {
-            log.error(e.getMessage());
-        }
+
+        userDtos = userMapper.toListDto(userRepositiry.findAll());
+        log.debug("the full list of employees has been successfully received");
         return userDtos;
     }
 
@@ -53,13 +48,10 @@ public class EmployeeServiceImpl implements EmployeeService {
     public UserDto getUserByname(String name) {
         UserDto userDto = new UserDto();
         UserEntity userEntity = new UserEntity();
-        try {
-            userEntity=userRepositiry.findByUsername(name).orElseThrow();
-            log.debug(String.format("the employee by name=%s was successfully received"),name);
-        } catch (Exception e) {
-           log.error(e.getMessage());
-        }
-        userDto =  userMapper.toDto(userEntity);
+
+        userEntity = userRepositiry.findByUsername(name).orElseThrow();
+        log.debug(String.format("the employee by name=%s was successfully received"), name);
+        userDto = userMapper.toDto(userEntity);
         return userDto;
     }
 }

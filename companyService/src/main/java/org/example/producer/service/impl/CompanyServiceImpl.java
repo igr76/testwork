@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -47,12 +48,15 @@ public class CompanyServiceImpl implements CompanyService {
         return companyDto;
     }
     @Override
-    public CompanyDtoAndUsers getCompanyByNameWithListEmployees(String name) {
+    public CompanyDtoAndUsers getCompanyByNameWithListEmployees(String name) throws IOException {
         CompanyDto companyDto = new CompanyDto();
         ObjectMapper objectMapper = new ObjectMapper();
         List<UserDto> userDtoList = new ArrayList<>();
-        try {
-            companyDto = companyMapper.toDto(companyRepositiry.findByName(name));
+        CompanyEntity companyEntity = new CompanyEntity();
+        companyEntity = companyRepositiry.findByName(name);
+        CompanyDtoAndUsers companyDtoWithListEmployees = new CompanyDtoAndUsers();
+        if(companyEntity!=null) {
+            companyDto = companyMapper.toDto(companyEntity);
             List<Integer> list = companyDto.getListUser();
             UserDto[] userDtos = objectMapper.readValue(new URL(urlUser + "/user/all"), UserDto[].class);
 
@@ -62,13 +66,10 @@ public class CompanyServiceImpl implements CompanyService {
                     .collect(Collectors.toList());
             userDtoList=Arrays.asList(userDtos);
             log.debug(String.format("the company by name=%s this employee was successfully received"),name);
-        } catch (IOException e) {
-            log.error(e.getMessage());
-            return null;
+            companyDtoWithListEmployees = companyMapper.toDtoListCompanyWithListEmployees(companyDto);
+            companyDtoWithListEmployees.setListUsers(userDtoList);
         }
-        CompanyDtoAndUsers companyDtoWithListEmployees = new CompanyDtoAndUsers();
-        companyDtoWithListEmployees = companyMapper.toDtoListCompanyWithListEmployees(companyDto);
-        companyDtoWithListEmployees.setListUsers(userDtoList);
+
 
         return companyDtoWithListEmployees;
     }
