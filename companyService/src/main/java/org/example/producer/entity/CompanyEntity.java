@@ -18,18 +18,12 @@ import java.util.List;
 @AllArgsConstructor
 public class CompanyEntity {
     @Id
-    public int id;
-    /**
-     * name company
-     */
-    public String name;
-    /**
-     * budget company
-     */
-    public int budget;
-    /**
-     * List users company
-     */
+    private int id;
+
+    private String name;
+
+    private int budget;
+
     @ElementCollection
     @CollectionTable(name = "list_user")
     public List<Integer> listUser;

@@ -9,5 +9,5 @@ import java.net.MalformedURLException;
 public interface CompanyService {
     CompanyDto getCompanyByName(String name);
 
-    CompanyDtoAndUsers getCompanyByNameWithListEmployees(String name) throws MalformedURLException, IOException;
+    CompanyDtoAndUsers getCompanyByNameWithListEmployees(String name) throws MalformedURLException, IOException, ElemNotFound;
 }

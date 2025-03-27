@@ -14,18 +14,12 @@ import java.util.List;
 @AllArgsConstructor
 public class CompanyDto {
 
-    /**
-     * name company
-     */
-    public String name;
-    /**
-     * budget company
-     */
-    public int budget;
-    /**
-     * List users company
-     */
-    public List<Integer> listUser;
+
+    private String name;
+
+    private int budget;
+
+    private List<Integer> listUser;
 
     @Override
     public String toString() {

@@ -2,6 +2,7 @@ package org.example.producer.controller;
 
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
+import org.example.producer.Exeption.BusinessException;
 import org.example.producer.dto.CompanyDto;
 import org.example.producer.dto.CompanyDtoAndUsers;
 import org.example.producer.service.CompanyService;
@@ -19,15 +20,27 @@ import java.io.IOException;
 public class CompanyController {
     private  CompanyService companyService;
     @GetMapping(value = "/{name}")
-    public ResponseEntity<CompanyDto> getCompanyByName(@PathVariable(value = "name") @NonNull String name) {
+    public ResponseEntity<CompanyDto> getCompanyByName(@PathVariable(value = "name") @NonNull String name) throws BusinessException {
         log.debug(String.format("In CompanyController getCompanyByName name=%s  name received successfully"),name);
-        return ResponseEntity.ok(companyService.getCompanyByName(name));
+        CompanyDto responseEntity = null;
+        try {
+            responseEntity = companyService.getCompanyByName(name);
+        } catch (Exception e) {
+            throw new BusinessException("error couldn't get the company by name");
+        }
+        return ResponseEntity.ok(responseEntity);
     }
 
     @GetMapping(value = "/companyThisUsers/{name}")
-    public ResponseEntity<CompanyDtoAndUsers> getCompanyByNameWithListUsers(@PathVariable(value = "name") @NonNull String name) throws IOException {
+    public ResponseEntity<CompanyDtoAndUsers> getCompanyByNameWithListUsers(@PathVariable(value = "name") @NonNull String name) throws IOException, BusinessException {
         log.debug(String.format("In CompanyController getCompanyByNameThisUsers name=%s  name received successfully"),name);
-        return ResponseEntity.ok(companyService.getCompanyByNameWithListEmployees(name));
+        CompanyDtoAndUsers responseEntity = null;
+        try {
+            responseEntity = companyService.getCompanyByNameWithListEmployees(name);
+        } catch (Exception e) {
+            throw new BusinessException("error couldn't get the company by name");
+        }
+        return ResponseEntity.ok(responseEntity);
     }
 
 }

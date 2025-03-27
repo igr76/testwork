@@ -12,23 +12,15 @@ import lombok.Setter;
 @AllArgsConstructor
 public class UserDto {
 
-    public Integer id;
-    /**
-     * number user
-     */
-    public int number;
-    /**
-     * name user
-     */
-    public String name;
-    /**
-     * Last name user
-     */
-    public String LastName;
-    /**
-     * phone number user
-     */
-    public int phone;
+    private Integer id;
+
+    private int number;
+
+    private String name;
+
+    private String LastName;
+
+    private int phone;
 
     @Override
     public String toString() {

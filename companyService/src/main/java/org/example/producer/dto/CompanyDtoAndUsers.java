@@ -11,16 +11,10 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CompanyDtoAndUsers {
-    /**
-     * name company
-     */
-    public String name;
-    /**
-     * budget company
-     */
-    public int budget;
-    /**
-     * List users company
-     */
-    public List<UserDto> listUsers;
+
+    private String name;
+
+    private int budget;
+
+    private List<UserDto> listUsers;
 }
