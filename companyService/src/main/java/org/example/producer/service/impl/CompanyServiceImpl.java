@@ -29,22 +29,16 @@ import java.util.stream.Collectors;
 @Service
 public class CompanyServiceImpl implements CompanyService {
 
-    private final RestClient.Builder restClientBuilder;
-    //  private final RestClient.Builder restClientBuilder;
     @Value("${applycation.user}")
     private String urlUser;
     private CompanyRepositiry companyRepositiry;
     private CompanyMapper companyMapper = new CompanyMapper();
     private WebClient webClient;
 
-    public CompanyServiceImpl(RestClient.Builder restClientBuilder) {
-        this.restClientBuilder = restClientBuilder;
-    }
 
-//    public CompanyServiceImpl(CompanyRepositiry companyRepositiry, RestClient.Builder restClientBuilder) {
-//        this.companyRepositiry = companyRepositiry;
-//        this.restClientBuilder = restClientBuilder;
-//    }
+    public CompanyServiceImpl(CompanyRepositiry companyRepositiry) {
+        this.companyRepositiry = companyRepositiry;
+    }
 
     @Override
     public CompanyDto getCompanyByName(String name) {
@@ -75,6 +69,7 @@ public class CompanyServiceImpl implements CompanyService {
                     .retrieve()
                     .bodyToMono( UserDto[].class).log()
                     .doOnError(error -> log.error("employee not write", error.getMessage()))
+                    .retry(3)
                     .block();
 
             Arrays.stream(userDtos)
