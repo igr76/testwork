@@ -68,13 +68,14 @@ public class CompanyServiceImpl implements CompanyService {
 
         if (companyEntity != null) {
             companyDto = companyMapper.toDto(companyEntity);
-            webClient = WebClient.builder().baseUrl(urlUser+ "/user/all").build();
             List<Integer> list = companyDto.getListUser();
-            Mono< UserDto[]> response = webClient.get()
+             UserDto[] userDtos = webClient.get()
+                    .uri(urlUser+ "/user/all")
                     .accept(MediaType.APPLICATION_JSON)
                     .retrieve()
-                    .bodyToMono( UserDto[].class).log();
-            UserDto[] userDtos=response.block();
+                    .bodyToMono( UserDto[].class).log()
+                    .doOnError(error -> log.error("employee not write", error.getMessage()))
+                    .block();
 
             Arrays.stream(userDtos)
                     .filter(e -> list.stream()
