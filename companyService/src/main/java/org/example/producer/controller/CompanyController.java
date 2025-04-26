@@ -21,7 +21,7 @@ public class CompanyController {
     private  CompanyService companyService;
     @GetMapping(value = "/{name}")
     public ResponseEntity<CompanyDto> getCompanyByName(@PathVariable(value = "name") @NonNull String name) throws BusinessException {
-        log.debug(String.format("In CompanyController getCompanyByName name=%s  name received successfully"),name);
+        log.debug("In CompanyController getCompanyByName name received successfully:{}", name);
         CompanyDto responseEntity = null;
         try {
             responseEntity = companyService.getCompanyByName(name);
@@ -32,8 +32,8 @@ public class CompanyController {
     }
 
     @GetMapping(value = "/companyThisUsers/{name}")
-    public ResponseEntity<CompanyDtoAndUsers> getCompanyByNameWithListUsers(@PathVariable(value = "name") @NonNull String name) throws IOException, BusinessException {
-        log.debug(String.format("In CompanyController getCompanyByNameThisUsers name=%s  name received successfully"),name);
+    public ResponseEntity<CompanyDtoAndUsers> getCompanyByNameWithListUsers(@PathVariable(value = "name") @NonNull String name) throws BusinessException {
+        log.debug("In CompanyController getCompanyByNameThisUsers name={}  name received successfully:",name);
         CompanyDtoAndUsers responseEntity = null;
         try {
             responseEntity = companyService.getCompanyByNameWithListEmployees(name);
